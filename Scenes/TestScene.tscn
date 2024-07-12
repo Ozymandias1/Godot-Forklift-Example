@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1ccer7f3nl04"]
+
+[ext_resource type="Texture2D" uid="uid://bk8s0364iuhtw" path="res://addons/kenney_prototype_textures/dark/texture_07.png" id="1_0cxlj"]
+[ext_resource type="Script" path="res://Scripts/Test/TestCube.gd" id="2_behs5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chc67"]
+albedo_texture = ExtResource("1_0cxlj")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xhm1t"]
+material = SubResource("StandardMaterial3D_chc67")
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hcmat"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5xdde"]
+
+[sub_resource type="Sky" id="Sky_fpl5l"]
+sky_material = SubResource("ProceduralSkyMaterial_5xdde")
+
+[sub_resource type="Environment" id="Environment_q3d5p"]
+background_mode = 2
+sky = SubResource("Sky_fpl5l")
+
+[sub_resource type="BoxMesh" id="BoxMesh_4qt8m"]
+
+[node name="TestScene" type="Node3D"]
+
+[node name="Ground" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_xhm1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_hcmat")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q3d5p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.629324, -0.545148, 0.553864, 0, 0.712692, 0.701477, -0.777143, 0.441456, -0.448514, 5.54126, 8.76734, -4.74031)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.85264, -0.319883, 0.413134, 0, 0.790689, 0.612218, -0.522499, -0.522001, 0.674173, 4.87458, 6.52622, 7.30303)
+
+[node name="TestCube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_4qt8m")
+script = ExtResource("2_behs5")
