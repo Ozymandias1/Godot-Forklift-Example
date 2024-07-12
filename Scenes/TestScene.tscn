@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1ccer7f3nl04"]
+[gd_scene load_steps=11 format=3 uid="uid://b1ccer7f3nl04"]
 
 [ext_resource type="Texture2D" uid="uid://bk8s0364iuhtw" path="res://addons/kenney_prototype_textures/dark/texture_07.png" id="1_0cxlj"]
 [ext_resource type="Script" path="res://Scripts/Test/TestCube.gd" id="2_behs5"]
+[ext_resource type="PackedScene" uid="uid://dusqf66ivcp86" path="res://Scenes/Templates/player.tscn" id="3_u6shh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chc67"]
 albedo_texture = ExtResource("1_0cxlj")
@@ -27,7 +28,7 @@ sky = SubResource("Sky_fpl5l")
 
 [node name="TestScene" type="Node3D"]
 
-[node name="Ground" type="Node3D" parent="."]
+[node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -50,3 +51,6 @@ transform = Transform3D(0.85264, -0.319883, 0.413134, 0, 0.790689, 0.612218, -0.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("BoxMesh_4qt8m")
 script = ExtResource("2_behs5")
+
+[node name="Player" parent="." instance=ExtResource("3_u6shh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53689, 1.65935, -0.000159264)
