@@ -4,10 +4,16 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@onready var camera_3d = $CameraPivot/Camera3D
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+# 스크립트 시작
+func _ready():
+	camera_3d.make_current()
 
+# 물리 업데이트
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
