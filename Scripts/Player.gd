@@ -2,9 +2,11 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
+const BASE_SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @onready var camera_3d = $CameraPivot/Camera3D
+@onready var animation_tree = $"3DGodotRobot/AnimationTree"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -20,9 +22,11 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		animation_tree.select_random_jump_anim()
 		velocity.y = JUMP_VELOCITY
 
+	_handle_jump_fall_animation()
 	_handle_movement(delta)
 	move_and_slide()
 
@@ -41,3 +45,22 @@ func _handle_movement(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+	
+	# 이동 애니메이션
+	var dirLen = desire_direction.length()
+	animation_tree["parameters/Locomotion/blend_position"] = lerp(animation_tree["parameters/Locomotion/blend_position"], dirLen * (SPEED / BASE_SPEED), 5.0 * delta)
+	
+	# 입력 방향에 따른 회전 처리
+	if desire_direction:
+		var target_transform = transform.looking_at(global_position + desire_direction, Vector3.UP, true)
+		transform = transform.interpolate_with(target_transform, 10.0 * delta)
+
+func _handle_jump_fall_animation():
+	if is_on_floor():
+		animation_tree.play_locomotion()
+	else:
+		var is_falling = get_position_delta().y < 0.0
+		if is_falling:
+			animation_tree.play_fall_animation()
+		else:
+			animation_tree.play_jump_animation()
