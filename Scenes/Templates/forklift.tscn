@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bidnma6m43w2a"]
+[gd_scene load_steps=31 format=3 uid="uid://bidnma6m43w2a"]
 
 [ext_resource type="Script" path="res://Scripts/Forklift.gd" id="1_e347w"]
 
@@ -501,6 +501,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pw2ej")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1alr"]
+
 [node name="Forklift" type="VehicleBody3D"]
 mass = 100.0
 script = ExtResource("1_e347w")
@@ -612,3 +614,12 @@ suspension_stiffness = 20.0
 [node name="WheelRR" type="MeshInstance3D" parent="Wheel_RR"]
 mesh = SubResource("ArrayMesh_wj2sf")
 skeleton = NodePath("")
+
+[node name="BoardingArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675144, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BoardingArea"]
+shape = SubResource("BoxShape3D_k1alr")
+
+[connection signal="body_entered" from="BoardingArea" to="." method="_on_boarding_area_body_entered"]
+[connection signal="body_exited" from="BoardingArea" to="." method="_on_boarding_area_body_exited"]
