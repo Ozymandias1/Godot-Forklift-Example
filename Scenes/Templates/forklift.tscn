@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bidnma6m43w2a"]
+[gd_scene load_steps=31 format=3 uid="uid://c1qpymnrp5vh8"]
 
 [ext_resource type="Script" path="res://Scripts/Forklift.gd" id="1_e347w"]
 
@@ -536,11 +536,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.28414, 0)
 remote_path = NodePath("../../../../Fork_Plate_Collision")
 
 [node name="Remote_Fork_Right" type="RemoteTransform3D" parent="Body/Mast/Fork"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31612, -0.458087, 4.08351)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31612, -0.550293, 4.08351)
 remote_path = NodePath("../../../../Fork_Right_Collision")
 
 [node name="Remote_Fork_Left" type="RemoteTransform3D" parent="Body/Mast/Fork"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.316, -0.458, 4.084)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.316, -0.550206, 4.084)
 remote_path = NodePath("../../../../Fork_Left_Collision")
 
 [node name="Remote_Mast" type="RemoteTransform3D" parent="Body/Mast"]
@@ -564,11 +564,11 @@ transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 5.2969e-
 shape = SubResource("BoxShape3D_014of")
 
 [node name="Fork_Right_Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, -0.209771, 0.0556694, 1.6462)
+transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, -0.209771, 0.040973, 1.6462)
 shape = SubResource("BoxShape3D_c4p46")
 
 [node name="Fork_Left_Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 0.209752, 0.0556832, 1.64627)
+transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 0.209752, 0.0409869, 1.64627)
 shape = SubResource("BoxShape3D_c4p46")
 
 [node name="Wheel_FL" type="VehicleWheel3D" parent="."]

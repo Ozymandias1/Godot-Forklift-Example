@@ -43,9 +43,9 @@ func _handle_lift_control(delta: float):
 
 	# 앞뒤 틸트
 	if Input.is_action_pressed("Lift Tilt Front"):
-		mast.rotation.x += 1.0 * delta
+		mast.rotation.x += 0.25 * delta
 	if Input.is_action_pressed("Lift Tilt Back"):
-		mast.rotation.x -= 1.0 * delta
+		mast.rotation.x -= 0.25 * delta
 
 	fork.position.y = clampf(fork.position.y, -0.203, 1.878)
 	mast.rotation.x = clampf(mast.rotation.x, deg_to_rad(-8.0), 0.0)
