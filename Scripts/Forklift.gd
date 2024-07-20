@@ -2,23 +2,63 @@ extends VehicleBody3D
 
 @onready var wheel_fl = $Wheel_FL
 @onready var wheel_fr = $Wheel_FR
+@onready var drive_location = $DriveLocation
+@onready var exit_location = $ExitLocation
+@onready var fork = $Body/Mast/Fork
+@onready var mast = $Body/Mast
+@onready var steer_mesh = $Body/Steer
+@onready var lever_height = $"Body/Lever-Height"
+@onready var lever_tilt = $"Body/Lever-Tilt"
+@onready var fps_camera = $FPSCamera
 
 var max_rpm = 300
 var max_torque = 100
 
 var is_controllable = false
+var lever_height_input: float = 0.0
+var lever_tilt_input: float = 0.0
 
 func _physics_process(delta):
 	if not is_controllable:
 		return
-	
+
 	steering = lerp(steering, Input.get_axis("Steer Left", "Steer Right") * 0.5, 5 * delta)
-	
+
 	var acceleration = Input.get_axis("Brake", "Throttle")
 	var rpm = wheel_fl.get_rpm()
 	wheel_fl.engine_force = acceleration * max_torque * (1 - rpm / max_rpm)
 	rpm = wheel_fr.get_rpm()
 	wheel_fr.engine_force = acceleration * max_torque * (1 - rpm / max_rpm)
+
+	_handle_lift_control(delta)
+	_handle_steering_and_lever_animation(delta)
+
+# 리프트 조작 처리
+func _handle_lift_control(delta: float):
+	# 상하 이동
+	if Input.is_action_pressed("Lift Up"):
+		fork.position.y += 1.0 * delta
+	if Input.is_action_pressed("Lift Down"):
+		fork.position.y -= 1.0 * delta
+
+	# 앞뒤 틸트
+	if Input.is_action_pressed("Lift Tilt Front"):
+		mast.rotation.x += 1.0 * delta
+	if Input.is_action_pressed("Lift Tilt Back"):
+		mast.rotation.x -= 1.0 * delta
+
+	fork.position.y = clampf(fork.position.y, -0.203, 1.878)
+	mast.rotation.x = clampf(mast.rotation.x, deg_to_rad(-8.0), 0.0)
+
+# 스티어링/레버 조작 애니메이션 처리
+func _handle_steering_and_lever_animation(delta: float) -> void:
+	steer_mesh.rotation.y = -steering * 2.5
+	
+	lever_height_input = lerp(lever_height_input, Input.get_axis("Lift Down", "Lift Up") * deg_to_rad(7.0), 5 * delta)
+	lever_height.rotation.x = deg_to_rad(-14.8) + lever_height_input
+	
+	lever_tilt_input = lerp(lever_tilt_input, Input.get_axis("Lift Tilt Back", "Lift Tilt Front") * deg_to_rad(7.0), 5 * delta)
+	lever_tilt.rotation.x = deg_to_rad(-14.8) + lever_tilt_input
 
 # 탑승구역(BoardingArea)에 뭔가 탐지되었을 경우 처리
 func _on_boarding_area_body_entered(body):

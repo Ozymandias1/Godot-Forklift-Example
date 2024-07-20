@@ -548,6 +548,7 @@ remote_path = NodePath("../../../Mast_Collision")
 
 [node name="Steer" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 0.966781, 0.255605, 0, -0.255605, 0.966781, 0, 0.493667, 0.45723)
+rotation_order = 0
 mesh = SubResource("ArrayMesh_usdei")
 skeleton = NodePath("")
 
@@ -559,15 +560,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000586714, 0.33212, 0.8591
 shape = SubResource("ConvexPolygonShape3D_eju8u")
 
 [node name="Fork_Plate_Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 5.33182e-08, 0.652128, 0.995342)
+transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 5.2969e-08, 0.652128, 0.995342)
 shape = SubResource("BoxShape3D_014of")
 
 [node name="Fork_Right_Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, -0.209771, 0.0556688, 1.6462)
+transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, -0.209771, 0.0556694, 1.6462)
 shape = SubResource("BoxShape3D_c4p46")
 
 [node name="Fork_Left_Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 0.209752, 0.0556826, 1.64627)
+transform = Transform3D(0.159386, 0, 0, 0, 0.159386, 0, 0, 0, 0.159386, 0.209752, 0.0556832, 1.64627)
 shape = SubResource("BoxShape3D_c4p46")
 
 [node name="Wheel_FL" type="VehicleWheel3D" parent="."]
@@ -620,6 +621,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.675144, -1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoardingArea"]
 shape = SubResource("BoxShape3D_k1alr")
+
+[node name="DriveLocation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.277296)
+
+[node name="ExitLocation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.87498)
+
+[node name="FPSCamera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.4, -0.25)
 
 [connection signal="body_entered" from="BoardingArea" to="." method="_on_boarding_area_body_entered"]
 [connection signal="body_exited" from="BoardingArea" to="." method="_on_boarding_area_body_exited"]
