@@ -12,3 +12,4 @@
 
 ## 리소스 출처
 [3DGodotRobot](https://captainripley.itch.io/godot-3d-robot-character)
+[RPG Audio by kenney.nl](https://kenney.nl/assets/rpg-audio)

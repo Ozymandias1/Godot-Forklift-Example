@@ -9,6 +9,7 @@ const JUMP_VELOCITY = 4.5
 @onready var boarding_label = $Boarding_Label
 @onready var body_collision = $BodyCollision
 @onready var body_mesh = $"3DGodotRobot"
+@onready var footstep_audio_player = $Footstep_AudioPlayer
 
 var original_parent: Node3D = null
 var entered_vehicle = null
@@ -75,7 +76,14 @@ func _handle_movement(delta):
 	if desire_direction:
 		var target_transform = transform.looking_at(global_position + desire_direction, Vector3.UP, true)
 		transform = transform.interpolate_with(target_transform, 10.0 * delta)
-
+		var footstep_audio_index = AudioServer.get_bus_index("Footstep")
+		AudioServer.set_bus_mute(footstep_audio_index, false)
+	else:
+		if animation_tree["parameters/Locomotion/blend_position"] < 0.5:
+			var footstep_audio_index = AudioServer.get_bus_index("Footstep")
+			AudioServer.set_bus_mute(footstep_audio_index, true)
+			footstep_audio_player.stop()
+		
 # 점프/추락 애니메이션 처리
 func _handle_jump_fall_animation():
 	if is_on_floor():
