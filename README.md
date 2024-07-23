@@ -10,6 +10,11 @@
 - https://docs.godotengine.org/en/stable/tutorials/animation/animation_tree.html
 - https://youtu.be/ZQOgD724eMA?si=TLWIta84zc7A_Sqc
 
+사운드
+- https://www.youtube.com/watch?v=Ly9fBT2OsA0&t=457s
+- https://www.youtube.com/watch?v=VpLKXbqXu20
+
 ## 리소스 출처
 [3DGodotRobot](https://captainripley.itch.io/godot-3d-robot-character)
 [RPG Audio by kenney.nl](https://kenney.nl/assets/rpg-audio)
+[Engine-Loop HEAVY VEHICLE/TANK](https://opengameart.org/content/engine-loop-heavy-vehicletank)

@@ -10,6 +10,7 @@ extends VehicleBody3D
 @onready var lever_height = $"Body/Lever-Height"
 @onready var lever_tilt = $"Body/Lever-Tilt"
 @onready var fps_camera = $FPSCamera
+@onready var engine_sfx = $EngineSFX
 
 var max_rpm = 300
 var max_torque = 100
@@ -18,7 +19,12 @@ var is_controllable = false
 var lever_height_input: float = 0.0
 var lever_tilt_input: float = 0.0
 
+var min_velocity_length: float = 0.0
+var max_velocity_length: float = 5.0
+
 func _physics_process(delta):
+	_handle_engine_sfx()
+	
 	if not is_controllable:
 		return
 
@@ -59,6 +65,13 @@ func _handle_steering_and_lever_animation(delta: float) -> void:
 	
 	lever_tilt_input = lerp(lever_tilt_input, Input.get_axis("Lift Tilt Back", "Lift Tilt Front") * deg_to_rad(7.0), 5 * delta)
 	lever_tilt.rotation.x = deg_to_rad(-14.8) + lever_tilt_input
+
+# 차량 엔진 사운드 효과 처리
+func _handle_engine_sfx():	
+	var velocity_length = clamp(linear_velocity.length(), 0.0, 5.0)
+	var velocity_ratio = inverse_lerp(0.0, 5.0, velocity_length)
+	var pitch_result = 1.0 + velocity_ratio
+	engine_sfx.pitch_scale = pitch_result	
 
 # 탑승구역(BoardingArea)에 뭔가 탐지되었을 경우 처리
 func _on_boarding_area_body_entered(body):
