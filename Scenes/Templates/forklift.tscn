@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://c1qpymnrp5vh8"]
+[gd_scene load_steps=33 format=3 uid="uid://c1qpymnrp5vh8"]
 
 [ext_resource type="Script" path="res://Scripts/Forklift.gd" id="1_e347w"]
 [ext_resource type="AudioStream" uid="uid://bwie2mbnnxx2t" path="res://Sounds/Engine/engine_heavy_loop.mp3" id="2_myl7v"]
+[ext_resource type="AudioStream" uid="uid://bsrj2ylh11ojl" path="res://Sounds/Lift/qubodup-edev.mp3" id="3_cfnbq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yow1m"]
 resource_name = "Body-Lower"
@@ -636,6 +637,11 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.4
 stream = ExtResource("2_myl7v")
 autoplay = true
 bus = &"EngineSFX"
+
+[node name="LiftSFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_cfnbq")
+pitch_scale = 0.5
+autoplay = true
 
 [connection signal="body_entered" from="BoardingArea" to="." method="_on_boarding_area_body_entered"]
 [connection signal="body_exited" from="BoardingArea" to="." method="_on_boarding_area_body_exited"]

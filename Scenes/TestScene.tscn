@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1ccer7f3nl04"]
+[gd_scene load_steps=20 format=3 uid="uid://b1ccer7f3nl04"]
 
 [ext_resource type="Texture2D" uid="uid://bk8s0364iuhtw" path="res://addons/kenney_prototype_textures/dark/texture_07.png" id="1_0cxlj"]
 [ext_resource type="Script" path="res://Scripts/Test/TestScene.gd" id="1_ejd73"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b40mrp5dyg1fo" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="4_vm2br"]
 [ext_resource type="PackedScene" uid="uid://c1qpymnrp5vh8" path="res://Scenes/Templates/forklift.tscn" id="6_78750"]
 [ext_resource type="PackedScene" uid="uid://beo7xhnaxqpis" path="res://Scenes/Templates/pallet_base.tscn" id="7_sboru"]
+[ext_resource type="PackedScene" uid="uid://ujy77teadgii" path="res://Scenes/Templates/pallet_drum_type0.tscn" id="8_d3351"]
+[ext_resource type="PackedScene" uid="uid://d04wpnnoomikg" path="res://Scenes/Templates/pallet_drum_type1.tscn" id="9_o1ct5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chc67"]
 albedo_texture = ExtResource("1_0cxlj")
@@ -239,3 +241,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.70588, 0.108299, 2.49642)
 
 [node name="Pallet_Base5" parent="." instance=ExtResource("7_sboru")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89257, 0.108299, 4.64665)
+
+[node name="Pallet_Drum_Type0" parent="." instance=ExtResource("8_d3351")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.74541, 0, 1.04266)
+
+[node name="Pallet_Drum_Type1" parent="." instance=ExtResource("9_o1ct5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75175, 0, -0.477989)

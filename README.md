@@ -18,3 +18,4 @@
 [3DGodotRobot](https://captainripley.itch.io/godot-3d-robot-character)
 [RPG Audio by kenney.nl](https://kenney.nl/assets/rpg-audio)
 [Engine-Loop HEAVY VEHICLE/TANK](https://opengameart.org/content/engine-loop-heavy-vehicletank)
+[Electronic Device Loop](https://opengameart.org/content/electronic-device-loop)

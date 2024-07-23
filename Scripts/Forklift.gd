@@ -11,6 +11,7 @@ extends VehicleBody3D
 @onready var lever_tilt = $"Body/Lever-Tilt"
 @onready var fps_camera = $FPSCamera
 @onready var engine_sfx = $EngineSFX
+@onready var lift_sfx = $LiftSFX
 
 var max_rpm = 300
 var max_torque = 100
@@ -21,6 +22,9 @@ var lever_tilt_input: float = 0.0
 
 var min_velocity_length: float = 0.0
 var max_velocity_length: float = 5.0
+
+func _ready():
+	lift_sfx.stream_paused = true
 
 func _physics_process(delta):
 	_handle_engine_sfx()
@@ -55,6 +59,11 @@ func _handle_lift_control(delta: float):
 
 	fork.position.y = clampf(fork.position.y, -0.203, 1.878)
 	mast.rotation.x = clampf(mast.rotation.x, deg_to_rad(-8.0), 0.0)
+	
+	if Input.is_action_pressed("Lift Up") or Input.is_action_pressed("Lift Down") or Input.is_action_pressed("Lift Tilt Front") or Input.is_action_pressed("Lift Tilt Back"):
+		lift_sfx.stream_paused = false
+	else:
+		lift_sfx.stream_paused = true
 
 # 스티어링/레버 조작 애니메이션 처리
 func _handle_steering_and_lever_animation(delta: float) -> void:
@@ -71,7 +80,7 @@ func _handle_engine_sfx():
 	var velocity_length = clamp(linear_velocity.length(), 0.0, 5.0)
 	var velocity_ratio = inverse_lerp(0.0, 5.0, velocity_length)
 	var pitch_result = 1.0 + velocity_ratio
-	engine_sfx.pitch_scale = pitch_result	
+	engine_sfx.pitch_scale = pitch_result
 
 # 탑승구역(BoardingArea)에 뭔가 탐지되었을 경우 처리
 func _on_boarding_area_body_entered(body):
