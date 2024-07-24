@@ -640,8 +640,7 @@ bus = &"EngineSFX"
 
 [node name="LiftSFX" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_cfnbq")
-pitch_scale = 0.5
-autoplay = true
+pitch_scale = 3.0
 
 [connection signal="body_entered" from="BoardingArea" to="." method="_on_boarding_area_body_entered"]
 [connection signal="body_exited" from="BoardingArea" to="." method="_on_boarding_area_body_exited"]

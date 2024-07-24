@@ -23,12 +23,15 @@ var lever_tilt_input: float = 0.0
 var min_velocity_length: float = 0.0
 var max_velocity_length: float = 5.0
 
+# 스크립트 시작
 func _ready():
+	# 리프트 조작 sfx를 멈춤 상태로 
 	lift_sfx.stream_paused = true
 
 func _physics_process(delta):
 	_handle_engine_sfx()
 	
+	# 조작가능한 상태(플레이어 탑승상태)일경우만 입력 처리
 	if not is_controllable:
 		return
 
@@ -60,8 +63,11 @@ func _handle_lift_control(delta: float):
 	fork.position.y = clampf(fork.position.y, -0.203, 1.878)
 	mast.rotation.x = clampf(mast.rotation.x, deg_to_rad(-8.0), 0.0)
 	
+	# 리프트 조작시 조작효과음 재생
 	if Input.is_action_pressed("Lift Up") or Input.is_action_pressed("Lift Down") or Input.is_action_pressed("Lift Tilt Front") or Input.is_action_pressed("Lift Tilt Back"):
 		lift_sfx.stream_paused = false
+		if lift_sfx.playing == false:
+			lift_sfx.play()
 	else:
 		lift_sfx.stream_paused = true
 

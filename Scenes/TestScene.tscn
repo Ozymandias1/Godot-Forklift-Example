@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://b1ccer7f3nl04"]
+[gd_scene load_steps=28 format=3 uid="uid://b1ccer7f3nl04"]
 
 [ext_resource type="Texture2D" uid="uid://bk8s0364iuhtw" path="res://addons/kenney_prototype_textures/dark/texture_07.png" id="1_0cxlj"]
 [ext_resource type="Script" path="res://Scripts/Test/TestScene.gd" id="1_ejd73"]
 [ext_resource type="Script" path="res://Scripts/Test/TestCube.gd" id="2_behs5"]
+[ext_resource type="Texture2D" uid="uid://gv2lioukp80y" path="res://addons/kenney_prototype_textures/purple/texture_01.png" id="3_k3slv"]
 [ext_resource type="PackedScene" uid="uid://dusqf66ivcp86" path="res://Scenes/Templates/player.tscn" id="3_u6shh"]
 [ext_resource type="Texture2D" uid="uid://b40mrp5dyg1fo" path="res://addons/kenney_prototype_textures/green/texture_01.png" id="4_vm2br"]
 [ext_resource type="PackedScene" uid="uid://c1qpymnrp5vh8" path="res://Scenes/Templates/forklift.tscn" id="6_78750"]
+[ext_resource type="Texture2D" uid="uid://bqv6cnhx78fym" path="res://addons/kenney_prototype_textures/orange/texture_01.png" id="6_ypblm"]
 [ext_resource type="PackedScene" uid="uid://beo7xhnaxqpis" path="res://Scenes/Templates/pallet_base.tscn" id="7_sboru"]
 [ext_resource type="PackedScene" uid="uid://ujy77teadgii" path="res://Scenes/Templates/pallet_drum_type0.tscn" id="8_d3351"]
 [ext_resource type="PackedScene" uid="uid://d04wpnnoomikg" path="res://Scenes/Templates/pallet_drum_type1.tscn" id="9_o1ct5"]
@@ -20,6 +22,18 @@ size = Vector3(1000, 1, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hcmat"]
 size = Vector3(1000, 1, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_weqga"]
+albedo_texture = ExtResource("3_k3slv")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_kbckk"]
+material = SubResource("StandardMaterial3D_weqga")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tohc3"]
+size = Vector3(50, 1, 50)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5xdde"]
 
@@ -42,6 +56,16 @@ size = Vector3(1, 0.5, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k5tyw"]
 points = PackedVector3Array(-0.5, -0.25, -0.5, -0.5, 0.25, -0.5, 0.5, -0.25, -0.5, -0.5, -0.25, 0.5, -0.5, 0.25, 0.5, 0.5, 0.25, -0.5, 0.5, -0.25, 0.5, 0.5, 0.25, 0.5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3bb3v"]
+albedo_texture = ExtResource("6_ypblm")
+
+[sub_resource type="BoxMesh" id="BoxMesh_u67hd"]
+material = SubResource("StandardMaterial3D_3bb3v")
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hxv67"]
+size = Vector3(1.5, 1.5, 1.5)
+
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_ejd73")
 
@@ -53,6 +77,15 @@ mesh = SubResource("BoxMesh_xhm1t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("BoxShape3D_hcmat")
+
+[node name="Upper_Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.198, 6.637, -23.318)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Upper_Floor"]
+mesh = SubResource("BoxMesh_kbckk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Upper_Floor"]
+shape = SubResource("BoxShape3D_tohc3")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q3d5p")
@@ -70,7 +103,7 @@ mesh = SubResource("BoxMesh_4qt8m")
 script = ExtResource("2_behs5")
 
 [node name="Player" parent="." instance=ExtResource("3_u6shh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.537, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.36662, 0.68931, -9.6679)
 
 [node name="Obstacles" type="Node3D" parent="."]
 
@@ -224,26 +257,35 @@ skeleton = NodePath("../../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Obstacle15"]
 shape = SubResource("ConvexPolygonShape3D_k5tyw")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7267, 7.37032, -24.3834)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/StaticBody3D"]
+mesh = SubResource("BoxMesh_u67hd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/StaticBody3D"]
+shape = SubResource("BoxShape3D_hxv67")
+
 [node name="Forklift" parent="." instance=ExtResource("6_78750")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.08748, 0, -0.696271)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.953545, 7.4077, -3.31364)
 
 [node name="Pallet_Base" parent="." instance=ExtResource("7_sboru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.27915, 1.96807, 2.09242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2693, 9.23913, -19.846)
 
 [node name="Pallet_Base2" parent="." instance=ExtResource("7_sboru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.07364, 0.108299, 2.49642)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0638, 7.37936, -19.442)
 
 [node name="Pallet_Base3" parent="." instance=ExtResource("7_sboru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96667, 0.108299, 2.49642)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9568, 7.37936, -19.442)
 
 [node name="Pallet_Base4" parent="." instance=ExtResource("7_sboru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.70588, 0.108299, 2.49642)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.696, 7.37936, -19.442)
 
 [node name="Pallet_Base5" parent="." instance=ExtResource("7_sboru")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.89257, 0.108299, 4.64665)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.8827, 7.37936, -17.2918)
 
 [node name="Pallet_Drum_Type0" parent="." instance=ExtResource("8_d3351")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.74541, 0, 1.04266)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7356, 7.27106, -20.8958)
 
 [node name="Pallet_Drum_Type1" parent="." instance=ExtResource("9_o1ct5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.75175, 0, -0.477989)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.7419, 7.27106, -22.4164)
