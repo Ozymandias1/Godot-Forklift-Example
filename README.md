@@ -1,5 +1,6 @@
 # Godot-Forklift-Game
 
+## 참고
 애니메이션
 - [Using AnimationTree¶](https://docs.godotengine.org/en/stable/tutorials/animation/animation_tree.html)
 - [Advanced Expressions in AnimationTree State Machine](https://youtu.be/ZQOgD724eMA?si=TLWIta84zc7A_Sqc)
