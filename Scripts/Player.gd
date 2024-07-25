@@ -22,6 +22,7 @@ var vehicle_list: Array[Node3D] = [] # 탑승가능한 차량 목록
 # 스크립트 시작
 func _ready():
 	# 차량 탑승, 하차시 부모 노드를 변경하는 방식이기때문에 씬 시작시의 원본 부모 노드를 저장해둔다.
+	# Since it is a method of changing the parent node when boarding or getting off the vehicle, the original parent node at the beginning of the scene is saved.
 	original_parent = self.get_parent_node_3d()
 	camera_3d.make_current()
 
@@ -81,9 +82,13 @@ func _handle_movement(delta):
 		AudioServer.set_bus_mute(footstep_audio_index, false)
 	else:
 		# 블렌드스페이스 사용시에는 다른애니메이션과 섞이는부분에서 재생중으로 처리되는듯하므로
-		# 애니메이션에 트랙에 설정해둔 발소리 재생 이벤트가 계속 호출이됨
-		# 따라서 발소리가 재생이 계속 호출되므로 발소리 사운드를 별도의 오디오 버스로 분리시키고
+		# 애니메이션에 트랙에 설정해둔 발소리 재생 이벤트가 계속 호출이됨.
+		# 따라서 발소리가 재생이 계속 호출되므로 발소리 사운드를 별도의 오디오 버스로 분리시키고		
 		# Idle-Run간의 블렌딩값이 0.5이하일경우 음소거 처리함
+		# When using the blend space, the footstep playback event set on the track in the animation
+		# continues to be called because the part mixed with other animations seems to be processed as playback.
+		# Therefore, the footstep sound is continuously called back, so the footstep sound is separated into
+		# a separate audio bus and muted if the blending value between Idle and Run is less than 0.5
 		if animation_tree["parameters/Locomotion/blend_position"] < 0.5:
 			var footstep_audio_index = AudioServer.get_bus_index("Footstep")
 			AudioServer.set_bus_mute(footstep_audio_index, true)

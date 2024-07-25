@@ -15,12 +15,14 @@ func _ready():
 # 업데이트
 func _process(delta):
 	# 위치 업데이트
+	# update camera location
 	if follow_target:
 		self.global_position = follow_target.global_position + (Vector3.UP * cam_height)
 	
 	camera_3d.position = lerp(camera_3d.position, camera_local_pos_target, 5.0 * delta)
 	
 	# 지게차 탑승 하차시 roll값이 변경되는 경우가 있으므로 0.0으로 고정시킨다.
+	# sometime's camera's roll value is changed when player exit from vehicle. so set to zero.
 	rotation.z = 0.0
 
 # 입력 처리

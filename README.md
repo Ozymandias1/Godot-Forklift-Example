@@ -1,5 +1,8 @@
 # Godot-Forklift-Game
 
+## 요구사항
+- Godot Engine 4.2.2
+
 ## 참고
 애니메이션
 - [Using AnimationTree¶](https://docs.godotengine.org/en/stable/tutorials/animation/animation_tree.html)
