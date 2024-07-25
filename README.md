@@ -1,4 +1,4 @@
-# Godot-Forklift-Game
+# Godot-Forklift-Example
 
 ## 요구사항
 - Godot Engine 4.2.2
